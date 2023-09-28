@@ -29,10 +29,11 @@ function SliderPagination({
   function getButton(
     btnName: string | number,
     onClickFunction: () => void,
-    controlButton?: boolean
+    key: number | string,
+    controlButton?: boolean,
   ) {
     return (
-      <li key={btnName}>
+      <li key={key}>
         <button 
         className={clsx(
           "text-base font-semibold py-2 px-2 rounded-lg cursor-pointer transition duration-500 ease-in-out",
@@ -51,7 +52,7 @@ function SliderPagination({
   const renderPageNumbers = pageNumbers.map((number) => {
     if (number < maxPageNumberLimit + 1  && number > minPageNumberLimit) {
       return (
-        getButton(number, () => setCurrentPage(number))
+        getButton(number, () => setCurrentPage(number), `page_${number}`)
       );
     } else {
       return null;
@@ -79,17 +80,17 @@ function SliderPagination({
 
   let pageIncrementBtn = null;
   if (pageNumbers.length > maxPageNumberLimit) {
-    pageIncrementBtn = <li className="text-blue-500 bg-white" onClick={handleNextbtn}> &hellip; </li>;
+    pageIncrementBtn = <li key='rightDots'><button className="text-blue-500 bg-white" onClick={handleNextbtn}>&hellip;</button></li>;
   }
 
   let pageDecrementBtn = null;
   if (minPageNumberLimit >= 1) {
-    pageDecrementBtn = <li className="text-blue-500 bg-white" onClick={handlePrevbtn}> &hellip; </li>;
+    pageDecrementBtn = <li key='leftDots'> <button className="text-blue-500 bg-white" onClick={handlePrevbtn}>&hellip;</button></li>;
   }
 
   return (
     <ul className="sm:max-w-full sm:whitespace-nowrap sm:overflow-x-auto flex justify-center items-center mt-[50px] mb-[50px] sm:gap-[3px] desktop:gap-[20px]">
-      {getButton("Prev", handlePrevbtn, true)}
+      {getButton("Prev", handlePrevbtn, 'Prev', true)}
       {pageDecrementBtn}
       {renderPageNumbers}
       {pageIncrementBtn}
@@ -98,6 +99,7 @@ function SliderPagination({
         () => {
           handleNextbtn();
         },
+        'Next',
         true
       )}
     </ul>
