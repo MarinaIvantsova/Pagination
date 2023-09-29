@@ -16,13 +16,15 @@ function App() {
 
   return (
     <div className="App">
-      {currentProducts.map((product) => (
-        <ul>
-          <li key={product}/>
-          {product}
-          </ul>
+       <ul>
+        {currentProducts.map((product) => (
+          <li key={String(product)}>
+          {product}</li>
         ))}
-      <SliderPagination productsPerPage={PRODUCTS_PER_PAGE}
+        </ul>
+
+      <SliderPagination 
+          productsPerPage={PRODUCTS_PER_PAGE}
           totalProducts={products.length}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}/>

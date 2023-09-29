@@ -26,40 +26,7 @@ function SliderPagination({
     setPageNumbers(newPageNumbers);
   }, [totalProducts, productsPerPage]);
 
-  function getButton(
-    btnName: string | number,
-    onClickFunction: () => void,
-    key: number | string,
-    controlButton?: boolean,
-  ) {
-    return (
-      <li key={key}>
-        <button 
-        className={clsx(
-          "text-base font-semibold py-2 px-2 rounded-lg cursor-pointer transition duration-500 ease-in-out",
-          btnName === currentPage || controlButton
-            ? "text-white bg-blue-500"
-            : "text-blue-500 bg-white"
-        )}
-        onClick={onClickFunction}
-        disabled={btnName === 'Prev' || btnName === 'Next' ? ((currentPage === pageNumbers[0] && btnName === 'Prev')
-         || (btnName === 'Next' && currentPage === pageNumbers[pageNumbers.length - 1]) ? true : false) : false}>
-        {btnName}
-        </button>
-      </li>
-    );
-  }
-  const renderPageNumbers = pageNumbers.map((number) => {
-    if (number < maxPageNumberLimit + 1  && number > minPageNumberLimit) {
-      return (
-        getButton(number, () => setCurrentPage(number), `page_${number}`)
-      );
-    } else {
-      return null;
-    }
-  });
-
-  const handleNextbtn = () => {
+  const handleNextBtn = () => {
     setCurrentPage(currentPage + 1);
 
     if (currentPage + 1 > maxPageNumberLimit) {
@@ -68,8 +35,7 @@ function SliderPagination({
     }
   };
 
-  const handlePrevbtn = () => {
-    
+  const handlePrevBtn = () => {
     setCurrentPage(currentPage - 1);
 
     if ((currentPage - 1) % PAGE_NUMBER_LIMIT === 0) {
@@ -78,28 +44,67 @@ function SliderPagination({
     }
   };
 
-  let pageIncrementBtn = null;
-  if (pageNumbers.length > maxPageNumberLimit) {
-    pageIncrementBtn = <li key='rightDots'><button className="text-blue-500 bg-white" onClick={handleNextbtn}>&hellip;</button></li>;
-  }
+  const pageIncrementBtn =
+  pageNumbers.length > maxPageNumberLimit ? (
+    <li key='rightDots'>
+      <button className="text-blue-500 bg-white" onClick={handleNextBtn}>
+        &hellip;
+      </button>
+    </li>
+  ) : null;
 
-  let pageDecrementBtn = null;
-  if (minPageNumberLimit >= 1) {
-    pageDecrementBtn = <li key='leftDots'> <button className="text-blue-500 bg-white" onClick={handlePrevbtn}>&hellip;</button></li>;
+  function getButton(
+    btnName: string | number,
+    onClickFunction: () => void,
+    controlButton?: boolean,
+  ) {
+    return (
+      <li key={String(btnName)}>
+        <button 
+        className={clsx(
+          "py-2 px-2 text-base font-semibold rounded-lg cursor-pointer transition duration-500 ease-in-out",
+          btnName === currentPage || controlButton
+            ? "text-white bg-blue-500"
+            : "text-blue-500 bg-white"
+        )}
+        onClick={onClickFunction}
+        disabled={(btnName === 'Prev' && currentPage === pageNumbers[0]) ||
+        (btnName === 'Next' && currentPage === pageNumbers[pageNumbers.length - 1])}>
+        {btnName}
+        </button>
+      </li>
+    );
   }
+  const pageDecrementBtn =
+    minPageNumberLimit >= 1 ? (
+      <li key='leftDots'>
+        <button className="text-blue-500 bg-white" onClick={handlePrevBtn}>
+          &hellip;
+        </button>
+      </li>
+    ) : null;
+
+    const renderPageNumbers = pageNumbers.map((number) => {
+      if (number < maxPageNumberLimit + 1  && number > minPageNumberLimit) {
+        return (
+          getButton(number, () => setCurrentPage(number))
+        );
+      } else {
+        return null;
+      }
+    });
 
   return (
-    <ul className="sm:max-w-full sm:whitespace-nowrap sm:overflow-x-auto flex justify-center items-center mt-[50px] mb-[50px] sm:gap-[3px] desktop:gap-[20px]">
-      {getButton("Prev", handlePrevbtn, 'Prev', true)}
+    <ul className="flex justify-center items-center mt-[50px] mb-[50px] desktop:gap-[20px] sm:max-w-full sm:whitespace-nowrap sm:overflow-x-auto sm:gap-[3px]">
+      {getButton("Prev", handlePrevBtn, true)}
       {pageDecrementBtn}
       {renderPageNumbers}
       {pageIncrementBtn}
       {getButton(
         "Next",
         () => {
-          handleNextbtn();
+          handleNextBtn();
         },
-        'Next',
         true
       )}
     </ul>
