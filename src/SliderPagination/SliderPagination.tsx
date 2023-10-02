@@ -15,8 +15,7 @@ function SliderPagination({
   setCurrentPage: (pageNumber: number) => void;
 }) {
   const [pageNumbers, setPageNumbers] = useState<Array<number>>([]);
-  const [maxPageNumberLimit, setmaxPageNumberLimit] =
-    useState(PAGE_NUMBER_LIMIT);
+  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(PAGE_NUMBER_LIMIT);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
   useEffect(() => {
@@ -33,7 +32,6 @@ function SliderPagination({
     if (currentPage + 1 > maxPageNumberLimit) {
       setmaxPageNumberLimit(maxPageNumberLimit + PAGE_NUMBER_LIMIT);
       setminPageNumberLimit(minPageNumberLimit + PAGE_NUMBER_LIMIT);
-      console.log(maxPageNumberLimit);
     }
   };
 
@@ -46,7 +44,6 @@ function SliderPagination({
     }
   };
 
-
 const renderPageDots = (key: string, onClick: () => void) => {
  return (
   <li key={key}>
@@ -56,13 +53,6 @@ const renderPageDots = (key: string, onClick: () => void) => {
 </li>
  )
 }
-  const renderPageIncrement = () => {
-    return pageNumbers.length > maxPageNumberLimit ? renderPageDots('rightDots', handleNextBtn) : null;
-  }
-
-  const renderPageDecrement = () => {
-    return minPageNumberLimit >= 1 ? renderPageDots('leftDots', handlePrevBtn) : null;
-  }
 
   function getButton(
     btnName: string | number,
@@ -91,21 +81,19 @@ const renderPageDots = (key: string, onClick: () => void) => {
     );
   }
 
-
   const renderPageNumbers = pageNumbers.map((number) => {
-    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
-      return getButton(String(number), () => setCurrentPage(number));
-    } else {
-      return null;
-    }
-  });
-
+    if(!(number < maxPageNumberLimit + 1 && number > minPageNumberLimit))
+    {
+      return;
+    } 
+    return getButton(String(number), () => setCurrentPage(number))
+})
   return (
     <ul className="flex justify-center items-center mt-[50px] mb-[50px] desktop:gap-[20px] sm:max-w-full sm:whitespace-nowrap sm:overflow-x-auto sm:gap-[3px]">
       {getButton("Prev", handlePrevBtn, true)}
-      {renderPageDecrement()}
+      {minPageNumberLimit >= 1 && renderPageDots('leftDots', handlePrevBtn)}
       {renderPageNumbers}
-      {renderPageIncrement()}
+      {pageNumbers.length > maxPageNumberLimit && renderPageDots('rightDots', handleNextBtn)}
       {getButton(
         "Next",
         () => {
