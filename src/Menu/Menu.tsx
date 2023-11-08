@@ -14,15 +14,13 @@ function Menu() {
   const CollapseExpand = menuState === State.COLLAPSED ? ">" : "<";
   const widerScreenWidth = window.matchMedia("(min-width: 1024px)");
 
+
   const handleResize = () => {
-    if (widerScreenWidth.matches) {
-      setExpandCollapse(true);
-      setMenuState(State.EXPANDED); 
-      setHome(true)
-    } else {
-      setExpandCollapse(false);
-      setHome(false)
-    }
+    const { matches } = widerScreenWidth;
+  
+    setExpandCollapse(matches);
+    setMenuState(matches ? State.EXPANDED : State.COLLAPSED);
+    setHome(matches);
   };
 
   useEffect(() => {
@@ -38,7 +36,7 @@ function Menu() {
     <div className="flex text-white">
       <div
         className={clsx("w-[40px] h-screen p-2 bg-red-600")}
-        style={widerScreenWidth.matches && menuState === State.EXPANDED ? { width: "200px" } : {}}
+        style={menuState === State.EXPANDED ? { width: "200px" } : {}}
       >
         <button className={expandCollapse ? "block" : "hidden"} onClick={() => setMenuState(prev => prev === State.COLLAPSED ? State.EXPANDED: State.COLLAPSED)} type="button">
           {CollapseExpand}
