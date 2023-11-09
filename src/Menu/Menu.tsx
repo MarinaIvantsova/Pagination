@@ -10,7 +10,6 @@ function Menu() {
   
   const [menuState, setMenuState] = useState(State.EXPANDED);
   const [expandCollapse, setExpandCollapse] = useState(true);
-  const [textHome, setHome] = useState(true);
   const CollapseExpand = menuState === State.COLLAPSED ? ">" : "<";
   const widerScreenWidth = window.matchMedia("(min-width: 1024px)");
 
@@ -20,7 +19,6 @@ function Menu() {
   
     setExpandCollapse(matches);
     setMenuState(matches ? State.EXPANDED : State.COLLAPSED);
-    setHome(matches);
   };
 
   useEffect(() => {
@@ -43,7 +41,7 @@ function Menu() {
         </button>
         <div className="flex">
           <FaHome size={20} className="mr-1" />
-          <div className={textHome ? "block" : 'hidden'}>
+          <div>
             {menuState === State.EXPANDED && 'Home'}
           </div>
         </div>
