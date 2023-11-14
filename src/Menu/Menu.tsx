@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { FaHome } from "react-icons/fa";
+import PostTable from "../PostTable";
 
 function Menu() {
   const State = {
@@ -31,6 +32,7 @@ function Menu() {
   }, []); 
 
   return (
+    <div>
     <div className="flex text-white">
       <div
         className={clsx("w-[40px] h-screen p-2 bg-red-600")}
@@ -46,7 +48,10 @@ function Menu() {
           </div>
         </div>
       </div>
-      <div className="flex-grow p-2 bg-blue-600">Content</div>
+      <div className="flex-grow p-2 bg-blue-600">
+    <PostTable />
+      </div>
+    </div>
     </div>
   );
 }
