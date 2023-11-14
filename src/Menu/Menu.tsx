@@ -14,7 +14,6 @@ function Menu() {
   const CollapseExpand = menuState === State.COLLAPSED ? ">" : "<";
   const widerScreenWidth = window.matchMedia("(min-width: 1024px)");
 
-
   const handleResize = () => {
     const { matches } = widerScreenWidth;
   
@@ -49,7 +48,7 @@ function Menu() {
         </div>
       </div>
       <div className="flex-grow p-2 bg-blue-600">
-    <PostTable />
+       <PostTable />
       </div>
     </div>
     </div>

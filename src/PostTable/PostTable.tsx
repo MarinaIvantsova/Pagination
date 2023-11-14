@@ -1,47 +1,43 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import {
   MaterialReactTable,
   useMaterialReactTable,
 } from 'material-react-table';
 
-const PostTable = () => {
-  const [posts, setPosts] = useState([]);
-  
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(data => setPosts(data))
-      .catch(error => console.error('Error fetching posts:', error));
-  }, []);
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import usePostsData from './usePostsData';
 
-   const data = useMemo(
-    () => posts,
-    [posts]
-  );
+const PostTable = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
  
   const columns = useMemo(
     () => [
       {
         accessorKey: 'title',
         header: 'Title', 
+        size: isMobile ? 100 : 200,
       },
       {
         accessorKey: 'body',
         header: 'Content',
-        size: 1000,
+        size: isMobile ? 200 : 1000,
       },
     ],
-    [],
+    [isMobile]
   );
+
+  const data  = usePostsData();
 
   const table = useMaterialReactTable({
     columns,
-    data, 
+    data,
     enableColumnResizing: true,
     columnResizeMode: 'onChange', 
   });
 
-  return <MaterialReactTable table={table} />;
+  return <MaterialReactTable table={table} />
 };
 
 export default PostTable;
