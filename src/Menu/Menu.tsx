@@ -2,8 +2,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import PostTable from "../PostTable";
-
-const lgScreenSize = '1024px'
+import { muiTheme } from "../MUI/MuiTheme";
 
 function Menu() {
   const State = {
@@ -14,8 +13,7 @@ function Menu() {
   const [menuState, setMenuState] = useState(State.EXPANDED);
   const [expandCollapse, setExpandCollapse] = useState(true);
   const CollapseExpand = menuState === State.COLLAPSED ? ">" : "<";
-  const widerScreenWidth = window.matchMedia(`(min-width: ${lgScreenSize})`);
-  
+  const widerScreenWidth = window.matchMedia(muiTheme.breakpoints.up('sm').replace('@media ', ''));
   const handleResize = () => {
     const { matches } = widerScreenWidth;
   
