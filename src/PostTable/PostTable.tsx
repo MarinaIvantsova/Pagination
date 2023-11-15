@@ -4,23 +4,13 @@ import {
   useMaterialReactTable,
 } from 'material-react-table';
 
-import { createTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import usePostsData from './usePostsData';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { muiTheme } from '../MUI/MuiTheme';
 
-const muiTheme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 1024,
-      md: 900,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-});
+
 
 const PostTable = () => {
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
