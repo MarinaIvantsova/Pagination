@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import PostTable from "../PostTable";
 
+const lgScreenSize = '1024px'
+
 function Menu() {
   const State = {
     COLLAPSED: 'collapsed',
@@ -12,8 +14,8 @@ function Menu() {
   const [menuState, setMenuState] = useState(State.EXPANDED);
   const [expandCollapse, setExpandCollapse] = useState(true);
   const CollapseExpand = menuState === State.COLLAPSED ? ">" : "<";
-  const widerScreenWidth = window.matchMedia("(min-width: 1024px)");
-
+  const widerScreenWidth = window.matchMedia(`(min-width: ${lgScreenSize})`);
+  
   const handleResize = () => {
     const { matches } = widerScreenWidth;
   
@@ -56,3 +58,4 @@ function Menu() {
 }
 
 export default Menu;
+
