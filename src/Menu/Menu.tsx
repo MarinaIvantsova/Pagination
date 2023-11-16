@@ -1,10 +1,15 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { FaHome } from "react-icons/fa";
 import PostTable from "../PostTable";
 import { muiTheme } from "../MUI/MuiTheme";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import IconButton from "@mui/material/IconButton";
+import Box from "@mui/material/Box";
+import HomeIcon from '@mui/icons-material/Home';
 
 function Menu() {
+
   const State = {
     COLLAPSED: 'collapsed',
     EXPANDED: 'expanded'
@@ -12,7 +17,6 @@ function Menu() {
   
   const [menuState, setMenuState] = useState(State.EXPANDED);
   const [expandCollapse, setExpandCollapse] = useState(true);
-  const CollapseExpand = menuState === State.COLLAPSED ? ">" : "<";
   const widerScreenWidth = window.matchMedia(muiTheme.breakpoints.up('sm').replace('@media ', ''));
   const handleResize = () => {
     const { matches } = widerScreenWidth;
@@ -31,27 +35,28 @@ function Menu() {
   }, []); 
 
   return (
-    <div>
-    <div className="flex text-white">
-      <div
-        className={clsx("w-[40px] h-screen p-2 bg-red-600")}
+    <Box className="flex text-black">
+      <Box
+        sx={{ bgcolor: 'primary.main' }}
+        className={clsx("w-[50px] p-2")}
         style={menuState === State.EXPANDED ? { width: "200px" } : {}}
       >
-        <button className={expandCollapse ? "block" : "hidden"} onClick={() => setMenuState(prev => prev === State.COLLAPSED ? State.EXPANDED: State.COLLAPSED)} type="button">
-          {CollapseExpand}
-        </button>
-        <div className="flex">
-          <FaHome size={20} className="mr-1" />
-          <div>
+        <Box className={expandCollapse ? 'block' : 'hidden'}>
+        <IconButton   onClick={() => setMenuState(prev => prev === State.COLLAPSED ? State.EXPANDED: State.COLLAPSED)} type="button">
+          {menuState === State.COLLAPSED ? (<ArrowForwardIosIcon/>) : ( <ArrowBackIosIcon/>) }
+        </IconButton >
+        </Box>
+        <Box className="flex">
+          <HomeIcon className="ml-1"/>
+          <Box className="pt-[1px]">
             {menuState === State.EXPANDED && 'Home'}
-          </div>
-        </div>
-      </div>
-      <div className="flex-grow p-2 bg-blue-600">
+          </Box>
+        </Box>
+      </Box>
+      <Box className="flex-grow p-2">
        <PostTable />
-      </div>
-    </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
