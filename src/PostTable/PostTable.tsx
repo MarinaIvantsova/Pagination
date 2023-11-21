@@ -5,14 +5,13 @@ import {
 } from 'material-react-table';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
-import usePostsData from './usePostsData';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { muiTheme } from '../MUI/MuiTheme';
+import { Post } from '../Types/dataType';
 
-
-
-const PostTable = () => {
+  const PostTable = ({ myData, handleOpen }: { myData: Post[]; handleOpen: () => void}) => {
+  
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
  
   const columns = useMemo(
@@ -31,7 +30,8 @@ const PostTable = () => {
     [isMobile]
   );
 
-  const data  = usePostsData();
+  const data = myData;
+  
 
   const table = useMaterialReactTable({
     columns,
@@ -43,9 +43,7 @@ const PostTable = () => {
       <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
         <Button
           color="secondary"
-          onClick={() => {
-            console.log('Create New Post');
-          }}
+          onClick={handleOpen}
           variant="contained"
         >
           Create Post
