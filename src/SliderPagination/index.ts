@@ -1,1 +1,1 @@
-export {default} from './SliderPagination';
+export { default } from './SliderPagination'
