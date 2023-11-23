@@ -8,7 +8,6 @@ import { FormProps } from '../constants/Types/dataType'
 import PopupTitle from '../common-popup-components/PopupTitle'
 
 const { v4: uuidv4 } = require('uuid')
-
 const style = {
   position: 'fixed' as 'fixed',
   top: '50%',
@@ -21,12 +20,12 @@ const style = {
   p: 4,
 }
 
-const PostForm: React.FC<FormProps> = ({ setData, handleClose }) => {
+const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId }) => {
   const [state, setState] = useState({
     title: '',
     body: '',
-    userId: 1,
-    id: uuidv4(),
+    userId,
+    id: 2,
   })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -42,7 +41,7 @@ const PostForm: React.FC<FormProps> = ({ setData, handleClose }) => {
     setState({
       title: '',
       body: '',
-      userId: 1,
+      userId,
       id: uuidv4(),
     })
     handleClose()

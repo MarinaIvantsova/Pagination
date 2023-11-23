@@ -10,6 +10,7 @@ export interface Post {
 export interface FormProps {
   setData: React.Dispatch<React.SetStateAction<Post[]>>
   handleClose: () => void
+  userId: number
 }
 
 export interface PopupProps {

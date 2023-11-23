@@ -11,6 +11,7 @@ import PostForm from '../../Form/PostForm'
 function PostsBoard() {
   const [data, setData] = useState<Post[]>([])
   const [open, setOpen] = useState(false)
+  const userId = 1
 
   const toggleOpenClose = () => setOpen((prev) => !prev)
 
@@ -31,7 +32,7 @@ function PostsBoard() {
           <PostTable data={data} />
         </Box>
         <Popup open={open} handleClose={toggleOpenClose}>
-          <PostForm setData={setData} handleClose={toggleOpenClose} />
+          <PostForm setData={setData} handleClose={toggleOpenClose} userId={userId} />
         </Popup>
       </Box>
     </Box>
