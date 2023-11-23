@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
-import PostTable from '../../components/PostTable'
 import Box from '@mui/material/Box'
-import usePostsData from '../../components/PostTable/usePostsData'
+import usePostsData from '../../components/Table/usePostsData'
 import { Post } from '../../constants/Types/dataType'
 import Popup from '../../components/Popup'
 import Menu from '../../components/Menu'
+import Form from '../../components/Popup/PopupForm'
+import Table from '../../components/Table'
 
 function PostsBoard() {
   const [data, setData] = useState<Post[]>([])
   const [open, setOpen] = useState(false)
 
-  const toggleOpenCLose = () => setOpen((prev) => !prev)
+  const toggleOpenClose = () => setOpen((prev) => !prev)
 
   const { posts, fetchPosts }: { posts: Post[]; fetchPosts: () => void } = usePostsData()
 
@@ -20,9 +21,13 @@ function PostsBoard() {
     <Box className="flex text-black">
       <Menu />
       <Box className="flex-grow p-2">
-        <PostTable myData={data} handleOpen={toggleOpenCLose} />
+        <Table data={data} handleOpen={toggleOpenClose} />
       </Box>
-      <Popup posts={posts} setMyData={setData} open={open} handleClose={toggleOpenCLose} />
+      <Popup open={open} handleClose={toggleOpenClose}>
+        <div>
+          <Form posts={posts} setData={setData} handleClose={toggleOpenClose} />
+        </div>
+      </Popup>
     </Box>
   )
 }

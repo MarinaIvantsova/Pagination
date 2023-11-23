@@ -7,7 +7,7 @@ import Button from '@mui/material/Button'
 import { muiTheme } from '../../constants/MUI/MuiTheme'
 import { Post } from '../../constants/Types/dataType'
 
-const PostTable = ({ myData, handleOpen }: { myData: Post[]; handleOpen: () => void }) => {
+const Table = ({ data, handleOpen }: { data: Post[]; handleOpen: () => void }) => {
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'))
 
   const columns = useMemo(
@@ -25,8 +25,6 @@ const PostTable = ({ myData, handleOpen }: { myData: Post[]; handleOpen: () => v
     ],
     [isMobile]
   )
-
-  const data = myData
 
   const table = useMaterialReactTable({
     columns,
@@ -46,4 +44,4 @@ const PostTable = ({ myData, handleOpen }: { myData: Post[]; handleOpen: () => v
   return <MaterialReactTable table={table} />
 }
 
-export default PostTable
+export default Table
