@@ -4,8 +4,9 @@ import usePostsData from '../../components/Table/usePostsData'
 import { Post } from '../../constants/Types/dataType'
 import Popup from '../../components/Popup'
 import Menu from '../../components/Menu'
-import Form from '../../components/Popup/PopupForm'
-import Table from '../../components/Table'
+import PostTable from '../../components/Table/PostTable'
+import { Button } from '@mui/material'
+import PopupForm from '../../components/Popup/PopupForm'
 
 function PostsBoard() {
   const [data, setData] = useState<Post[]>([])
@@ -18,16 +19,21 @@ function PostsBoard() {
   useEffect(() => setData(posts), [posts])
 
   return (
-    <Box className="flex text-black">
-      <Menu />
-      <Box className="flex-grow p-2">
-        <Table data={data} handleOpen={toggleOpenClose} />
+    <Box>
+      <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
+        <Button color="secondary" onClick={toggleOpenClose} variant="contained">
+          Create Post
+        </Button>
       </Box>
-      <Popup open={open} handleClose={toggleOpenClose}>
-        <div>
-          <Form posts={posts} setData={setData} handleClose={toggleOpenClose} />
-        </div>
-      </Popup>
+      <Box className="flex text-black">
+        <Menu />
+        <Box className="flex-grow p-2">
+          <PostTable data={data} />
+        </Box>
+        <Popup open={open} handleClose={toggleOpenClose}>
+          <PopupForm posts={posts} setData={setData} handleClose={toggleOpenClose} />
+        </Popup>
+      </Box>
     </Box>
   )
 }

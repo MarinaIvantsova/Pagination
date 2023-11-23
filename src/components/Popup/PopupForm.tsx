@@ -8,7 +8,7 @@ import { FormProps } from '../../constants/Types/dataType'
 import PopupTitle from '../../common-form-components/PopupTitle'
 
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'fixed' as 'fixed',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -28,10 +28,10 @@ const PopupForm: React.FC<FormProps> = ({ posts, setData, handleClose }) => {
   })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const value = evt.target.value
+    const { name, value } = evt.target
     setState({
       ...state,
-      [evt.target.name]: value,
+      [name]: value,
     })
   }
   const handleSubmit = (evt: React.FormEvent) => {
@@ -46,34 +46,36 @@ const PopupForm: React.FC<FormProps> = ({ posts, setData, handleClose }) => {
     handleClose()
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <Box sx={style}>
-        <PopupTitle title="Create a new post" />
-        <Typography sx={{ mb: 2 }}>
-          Title:
-          <Input type="text" name="title" value={state.title} onChange={handleChange} style={{ marginLeft: '8px' }} />
-        </Typography>
-        <Typography sx={{ mb: 2 }}>
-          Content:
-          <Textarea
-            name="body"
-            value={state.body}
-            onChange={handleChange}
-            style={{
-              marginTop: '15px',
-              width: '100%',
-              minHeight: '100px',
-            }}
-          />
-        </Typography>
+    <Box>
+      <form onSubmit={handleSubmit}>
+        <Box sx={style}>
+          <PopupTitle title="Create a new post" />
+          <Typography sx={{ mb: 2 }}>
+            Title:
+            <Input type="text" name="title" value={state.title} onChange={handleChange} style={{ marginLeft: '8px' }} />
+          </Typography>
+          <Typography sx={{ mb: 2 }}>
+            Content:
+            <Textarea
+              name="body"
+              value={state.body}
+              onChange={handleChange}
+              style={{
+                marginTop: '15px',
+                width: '100%',
+                minHeight: '100px',
+              }}
+            />
+          </Typography>
 
-        <Box textAlign="center">
-          <Button variant="contained" type="submit" value="submit">
-            Send
-          </Button>
+          <Box textAlign="center">
+            <Button variant="contained" type="submit" value="submit">
+              Send
+            </Button>
+          </Box>
         </Box>
-      </Box>
-    </form>
+      </form>
+    </Box>
   )
 }
 
