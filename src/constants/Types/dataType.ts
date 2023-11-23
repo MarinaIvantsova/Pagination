@@ -8,7 +8,6 @@ export interface Post {
 }
 
 export interface FormProps {
-  posts: Post[]
   setData: React.Dispatch<React.SetStateAction<Post[]>>
   handleClose: () => void
 }

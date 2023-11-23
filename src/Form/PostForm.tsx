@@ -4,8 +4,10 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { Input } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
-import { FormProps } from '../../constants/Types/dataType'
-import PopupTitle from '../../common-popup-components/PopupTitle'
+import { FormProps } from '../constants/Types/dataType'
+import PopupTitle from '../common-popup-components/PopupTitle'
+
+const { v4: uuidv4 } = require('uuid')
 
 const style = {
   position: 'fixed' as 'fixed',
@@ -19,12 +21,12 @@ const style = {
   p: 4,
 }
 
-const PostForm: React.FC<FormProps> = ({ posts, setData, handleClose }) => {
+const PostForm: React.FC<FormProps> = ({ setData, handleClose }) => {
   const [state, setState] = useState({
     title: '',
     body: '',
     userId: 1,
-    id: posts.length + 1,
+    id: uuidv4(),
   })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -41,7 +43,7 @@ const PostForm: React.FC<FormProps> = ({ posts, setData, handleClose }) => {
       title: '',
       body: '',
       userId: 1,
-      id: posts.length + 2,
+      id: uuidv4(),
     })
     handleClose()
   }
