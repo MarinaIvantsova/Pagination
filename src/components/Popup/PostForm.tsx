@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import { Input } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 import { FormProps } from '../../constants/Types/dataType'
-import PopupTitle from '../../common-form-components/PopupTitle'
+import PopupTitle from '../../common-popup-components/PopupTitle'
 
 const style = {
   position: 'fixed' as 'fixed',
@@ -19,7 +19,7 @@ const style = {
   p: 4,
 }
 
-const PopupForm: React.FC<FormProps> = ({ posts, setData, handleClose }) => {
+const PostForm: React.FC<FormProps> = ({ posts, setData, handleClose }) => {
   const [state, setState] = useState({
     title: '',
     body: '',
@@ -79,4 +79,4 @@ const PopupForm: React.FC<FormProps> = ({ posts, setData, handleClose }) => {
   )
 }
 
-export default PopupForm
+export default PostForm

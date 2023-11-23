@@ -6,7 +6,7 @@ import Popup from '../../components/Popup'
 import Menu from '../../components/Menu'
 import PostTable from '../../components/Table/PostTable'
 import { Button } from '@mui/material'
-import PopupForm from '../../components/Popup/PopupForm'
+import PostForm from '../../components/Popup/PostForm'
 
 function PostsBoard() {
   const [data, setData] = useState<Post[]>([])
@@ -31,7 +31,7 @@ function PostsBoard() {
           <PostTable data={data} />
         </Box>
         <Popup open={open} handleClose={toggleOpenClose}>
-          <PopupForm posts={posts} setData={setData} handleClose={toggleOpenClose} />
+          <PostForm posts={posts} setData={setData} handleClose={toggleOpenClose} />
         </Popup>
       </Box>
     </Box>
