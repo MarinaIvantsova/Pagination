@@ -25,7 +25,7 @@ const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId }) => {
     title: '',
     body: '',
     userId,
-    id: 2,
+    id: uuidv4(),
   })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
