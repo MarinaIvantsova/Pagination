@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
-import PostsBoard from './Pages/PostsBoard'
+import PostsBoard from './Pages/Posts/PostsBoard'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

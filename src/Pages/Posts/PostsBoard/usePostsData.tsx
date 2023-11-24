@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Post } from '../../constants/Types/dataType'
+import { Post } from '../../../constants/Types/dataType'
 
 function usePostsData() {
   const [posts, setPosts] = useState<Post[]>([])

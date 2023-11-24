@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import usePostsData from './usePostsData'
-import { Post } from '../../constants/Types/dataType'
-import Popup from '../../components/Popup'
-import Menu from '../../components/Menu'
-import PostTable from '../../views/Posts/PostTable/PostTable'
+import { Post } from '../../../constants/Types/dataType'
+import Popup from '../../../components/Popup'
+import Menu from '../../../components/Menu'
+import PostTable from '../../../views/Posts/PostTable/PostTable'
 import { Button } from '@mui/material'
-import PostForm from '../../views/Posts/PostForm/PostForm'
+import PostForm from '../../../views/Posts/PostForm/PostForm'
 
 function PostsBoard() {
   const [data, setData] = useState<Post[]>([])
