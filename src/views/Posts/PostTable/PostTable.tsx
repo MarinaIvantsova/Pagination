@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
-import Table from '../../components/Table/Table'
+import Table from '../../../components/Table/Table'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { muiTheme } from '../../constants/MUI/MuiTheme'
-import { Post } from '../../constants/Types/dataType'
+import { muiTheme } from '../../../constants/MUI/MuiTheme'
+import { Post } from '../../../constants/Types/dataType'
 
 const PostTable = ({ data }: { data: Post[] }) => {
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'))

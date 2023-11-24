@@ -4,9 +4,9 @@ import usePostsData from './usePostsData'
 import { Post } from '../../constants/Types/dataType'
 import Popup from '../../components/Popup'
 import Menu from '../../components/Menu'
-import PostTable from '../../views/PostTable/PostTable'
+import PostTable from '../../views/Posts/PostTable/PostTable'
 import { Button } from '@mui/material'
-import PostForm from '../../views/PostForm/PostForm'
+import PostForm from '../../views/Posts/PostForm/PostForm'
 
 function PostsBoard() {
   const [data, setData] = useState<Post[]>([])
