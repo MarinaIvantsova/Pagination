@@ -4,10 +4,11 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { Input } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
-import { FormProps } from '../constants/Types/dataType'
-import PopupTitle from '../common-popup-components/PopupTitle'
+import { FormProps } from '../../constants/Types/dataType'
+import PopupTitle from '../../components/Popup/PopupTitle'
 
 const { v4: uuidv4 } = require('uuid')
+
 const style = {
   position: 'fixed' as 'fixed',
   top: '50%',

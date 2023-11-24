@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import Table from './Table'
+import Table from '../../components/Table/Table'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { muiTheme } from '../../constants/MUI/MuiTheme'
 import { Post } from '../../constants/Types/dataType'

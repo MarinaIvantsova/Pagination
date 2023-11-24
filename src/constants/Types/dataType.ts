@@ -12,9 +12,3 @@ export interface FormProps {
   handleClose: () => void
   userId: number
 }
-
-export interface PopupProps {
-  open: boolean
-  children: React.ReactElement
-  handleClose: () => void
-}
