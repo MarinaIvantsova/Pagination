@@ -1,5 +1,4 @@
-import { MaterialReactTable, useMaterialReactTable } from 'material-react-table'
-import { Post } from '../../constants/Types/dataType'
+import { MaterialReactTable, useMaterialReactTable, MRT_RowData } from 'material-react-table'
 
 type TableColumn = {
   accessorKey: string
@@ -7,7 +6,7 @@ type TableColumn = {
   size: number
 }
 
-const Table = ({ columns, data }: { columns: TableColumn[]; data: Post[] }) => {
+const Table = <T extends MRT_RowData>({ columns, data }: { columns: TableColumn[]; data: T[] }) => {
   const table = useMaterialReactTable({
     columns,
     data,
