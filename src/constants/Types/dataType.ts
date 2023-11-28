@@ -4,9 +4,3 @@ export interface Post {
   title: string
   body: string
 }
-
-export interface FormProps {
-  handleClose: () => void
-  userId: number
-  submitHandler: (newPost: Post) => void
-}

@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
-import { Input, Box, Button, Typography } from '@mui/material'
+import { Input, Box, Button } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
-import { FormProps } from '../../../constants/Types/dataType'
 import PopupTitle from '../../../components/Popup/PopupTitle'
+import { Post } from '../../../constants/Types/dataType'
+import FormField from '../../../components/Form/FormField'
+
+interface FormProps {
+  handleClose: () => void
+  userId: number
+  submitHandler: (newPost: Post) => void
+}
 
 const { v4: uuidv4 } = require('uuid')
 
@@ -50,8 +57,7 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
       <form onSubmit={handleSubmit}>
         <Box sx={style}>
           <PopupTitle title="Create a new post" />
-          <Typography sx={{ mb: 2 }}>
-            Title:
+          <FormField title="Title:">
             <Input
               type="text"
               name="title"
@@ -59,9 +65,8 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
               onChange={handleChange}
               style={{ marginLeft: '8px' }}
             />
-          </Typography>
-          <Typography sx={{ mb: 2 }}>
-            Content:
+          </FormField>
+          <FormField title="Content:">
             <Textarea
               name="body"
               value={postState.body}
@@ -72,8 +77,7 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
                 minHeight: '100px',
               }}
             />
-          </Typography>
-
+          </FormField>
           <Box textAlign="center">
             <Button variant="contained" type="submit" value="submit">
               Send
