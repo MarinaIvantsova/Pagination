@@ -11,7 +11,6 @@ function usePostsData() {
       return data
     } catch (error) {
       console.error('Error fetching posts:', error)
-      throw error
     }
   }
   const initData = async () => {
@@ -20,7 +19,6 @@ function usePostsData() {
       setPosts(data)
     } catch (error) {
       console.error('Error initializing data:', error)
-      throw error
     }
   }
 

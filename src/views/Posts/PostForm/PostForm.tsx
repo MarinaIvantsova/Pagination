@@ -1,8 +1,5 @@
-import React, { useState } from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import { Input } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Input, Box, Button, Typography } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 import { FormProps } from '../../../constants/Types/dataType'
 import PopupTitle from '../../../components/Popup/PopupTitle'
@@ -10,7 +7,7 @@ import PopupTitle from '../../../components/Popup/PopupTitle'
 const { v4: uuidv4 } = require('uuid')
 
 const style = {
-  position: 'fixed' as 'fixed',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -21,12 +18,18 @@ const style = {
   p: 4,
 }
 
+let initIdState: number
+
 const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId }) => {
+  useEffect(() => {
+    initIdState = 1
+  }, [])
+
   const [state, setState] = useState({
     title: '',
     body: '',
     userId,
-    id: uuidv4(),
+    id: initIdState,
   })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
