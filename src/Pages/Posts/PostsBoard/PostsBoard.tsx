@@ -18,6 +18,10 @@ function PostsBoard() {
 
   useEffect(() => setData(posts), [posts])
 
+  const submitHandler = (newPost: any) => {
+    setData((prev) => [...prev, newPost])
+  }
+
   return (
     <Box>
       <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
@@ -31,7 +35,7 @@ function PostsBoard() {
           <PostTable data={data} />
         </Box>
         <Popup open={open} handleClose={toggleOpenClose}>
-          <PostForm setData={setData} handleClose={toggleOpenClose} userId={userId} />
+          <PostForm submitHandler={submitHandler} handleClose={toggleOpenClose} userId={userId} />
         </Popup>
       </Box>
     </Box>

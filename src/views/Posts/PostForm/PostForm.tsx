@@ -18,8 +18,8 @@ const style = {
   p: 4,
 }
 
-const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId }) => {
-  const [state, setState] = useState({
+const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) => {
+  const [postState, setPostState] = useState({
     title: '',
     body: '',
     userId,
@@ -28,8 +28,8 @@ const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId }) => {
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target
 
-    setState({
-      ...state,
+    setPostState({
+      ...postState,
       [name]: value,
     })
   }
@@ -37,17 +37,12 @@ const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId }) => {
     evt.preventDefault()
 
     const newPost = {
-      ...state,
+      ...postState,
       id: uuidv4(),
     }
 
-    setData((prev) => [...prev, newPost])
+    submitHandler(newPost)
 
-    setState({
-      title: '',
-      body: '',
-      userId,
-    })
     handleClose()
   }
   return (
@@ -57,13 +52,19 @@ const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId }) => {
           <PopupTitle title="Create a new post" />
           <Typography sx={{ mb: 2 }}>
             Title:
-            <Input type="text" name="title" value={state.title} onChange={handleChange} style={{ marginLeft: '8px' }} />
+            <Input
+              type="text"
+              name="title"
+              value={postState.title}
+              onChange={handleChange}
+              style={{ marginLeft: '8px' }}
+            />
           </Typography>
           <Typography sx={{ mb: 2 }}>
             Content:
             <Textarea
               name="body"
-              value={state.body}
+              value={postState.body}
               onChange={handleChange}
               style={{
                 marginTop: '15px',
