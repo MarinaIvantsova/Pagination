@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Input, Box, Button, Typography } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 import { FormProps } from '../../../constants/Types/dataType'
@@ -18,16 +18,16 @@ const style = {
   p: 4,
 }
 
-const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId, id }) => {
+const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId }) => {
   const [state, setState] = useState({
     title: '',
     body: '',
     userId,
-    id,
   })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target
+
     setState({
       ...state,
       [name]: value,
@@ -35,12 +35,18 @@ const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId, id }) => 
   }
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault()
-    setData((prev) => [...prev, state])
+
+    const newPost = {
+      ...state,
+      id: uuidv4(),
+    }
+
+    setData((prev) => [...prev, newPost])
+
     setState({
       title: '',
       body: '',
       userId,
-      id: uuidv4(),
     })
     handleClose()
   }
