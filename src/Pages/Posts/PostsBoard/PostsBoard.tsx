@@ -10,7 +10,8 @@ import PostForm from '../../../views/Posts/PostForm/PostForm'
 function PostsBoard() {
   const [data, setData] = useState<Post[]>([])
   const [open, setOpen] = useState(false)
-  const userId = 1
+  let userId = 1
+  let id = 2
 
   const toggleOpenClose = () => setOpen((prev) => !prev)
 
@@ -31,7 +32,7 @@ function PostsBoard() {
           <PostTable data={data} />
         </Box>
         <Popup open={open} handleClose={toggleOpenClose}>
-          <PostForm setData={setData} handleClose={toggleOpenClose} userId={userId} />
+          <PostForm setData={setData} handleClose={toggleOpenClose} userId={userId} id={id} />
         </Popup>
       </Box>
     </Box>

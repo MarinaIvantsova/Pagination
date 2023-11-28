@@ -11,4 +11,5 @@ export interface FormProps {
   setData: React.Dispatch<React.SetStateAction<Post[]>>
   handleClose: () => void
   userId: number
+  id: number
 }

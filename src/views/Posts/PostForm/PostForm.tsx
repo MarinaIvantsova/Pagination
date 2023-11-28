@@ -18,18 +18,12 @@ const style = {
   p: 4,
 }
 
-let initIdState: number
-
-const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId }) => {
-  useEffect(() => {
-    initIdState = 1
-  }, [])
-
+const PostForm: React.FC<FormProps> = ({ setData, handleClose, userId, id }) => {
   const [state, setState] = useState({
     title: '',
     body: '',
     userId,
-    id: initIdState,
+    id,
   })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
