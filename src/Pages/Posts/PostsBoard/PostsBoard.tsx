@@ -18,7 +18,7 @@ function PostsBoard() {
 
   useEffect(() => setData(posts), [posts])
 
-  const submitHandler = (newPost: any) => {
+  const submitHandler = (newPost: Post) => {
     setData((prev) => [...prev, newPost])
   }
 
