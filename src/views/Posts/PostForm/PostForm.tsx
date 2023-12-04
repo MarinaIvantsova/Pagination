@@ -1,18 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input, Box, Button } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 import PopupTitle from '../../../components/Popup/PopupTitle'
 import { Post } from '../../../constants/Types/dataType'
 import FormField from '../../../components/Form/FormField'
+import useCreatePost from '../../../Pages/Posts/PostsBoard/useCreatePost'
 
 interface FormProps {
   handleClose: () => void
   userId: number
   submitHandler: (newPost: Post) => void
 }
-
-const { v4: uuidv4 } = require('uuid')
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -32,6 +30,9 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
     userId,
   })
 
+  const [newPostValue, setnewPostValue] = useState<Post>()
+  const newPostPromise = useCreatePost(postState)
+
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target
 
@@ -40,18 +41,17 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
       [name]: value,
     })
   }
+
+  useEffect(() => {
+    newPostPromise.then((res) => setnewPostValue(res))
+  }, [newPostPromise])
+
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault()
-
-    const newPost = {
-      ...postState,
-      id: uuidv4(),
-    }
-
-    submitHandler(newPost)
-
+    submitHandler(newPostValue!)
     handleClose()
   }
+
   return (
     <Box>
       <form onSubmit={handleSubmit}>
