@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Input, Box, Button } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 import PopupTitle from '../../../components/Popup/PopupTitle'
-import { Post } from '../../../constants/Types/dataType'
+import { Post, url } from '../../../constants/Types/dataType'
 import FormField from '../../../components/Form/FormField'
 import useCreatePost from '../../../Pages/Posts/PostsBoard/useCreatePost'
 
@@ -30,8 +30,7 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
     userId,
   })
 
-  const [newPostValue, setnewPostValue] = useState<Post>()
-  const newPostPromise = useCreatePost(postState)
+  const { data, error } = useCreatePost(postState, url)
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target
@@ -42,13 +41,9 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
     })
   }
 
-  useEffect(() => {
-    newPostPromise.then((res) => setnewPostValue(res))
-  }, [newPostPromise])
-
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault()
-    submitHandler(newPostValue!)
+    submitHandler(data!)
     handleClose()
   }
 
@@ -82,6 +77,7 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
             <Button variant="contained" type="submit" value="submit">
               Send
             </Button>
+            {error && <div>{error}</div>}
           </Box>
         </Box>
       </form>

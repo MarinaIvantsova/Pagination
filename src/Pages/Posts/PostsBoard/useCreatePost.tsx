@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Post } from '../../../constants/Types/dataType'
 const { v4: uuidv4 } = require('uuid')
 
-const useCreatePost = async (post: any) => {
-  const [newPost, setNewPost] = useState<Post | undefined>(undefined)
+const useCreatePost = (post: Post, url: string) => {
+  const [data, setData] = useState<Post | undefined>(undefined)
+  const [error, setError] = useState(null)
 
-  try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+  useEffect(() => {
+    fetch(url, {
       method: 'POST',
       body: JSON.stringify({
         title: post.title,
@@ -18,14 +19,21 @@ const useCreatePost = async (post: any) => {
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error('Could not create a post')
+        }
+        return res.json()
+      })
+      .then((res) => {
+        setData(res)
+      })
+      .catch((err) => {
+        setError(err.message)
+      })
+  }, [post, url])
 
-    const data = await response.json()
-    setNewPost(data)
-  } catch (error) {
-    console.error('Error creating post:', error)
-  }
-
-  return newPost
+  return { data, error }
 }
 
 export default useCreatePost
