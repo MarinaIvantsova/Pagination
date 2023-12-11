@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input, Box, Button } from '@mui/material'
 import Textarea from '@mui/joy/Textarea'
 import PopupTitle from '../../../components/Popup/PopupTitle'
@@ -30,7 +30,14 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
     userId,
   })
 
-  const { data, error } = useCreatePost(postState, url)
+  const { error, createPost } = useCreatePost()
+
+  useEffect(() => {
+    if (error !== null || error === false) {
+      submitHandler(postState)
+      handleClose()
+    }
+  }, [error])
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target
@@ -43,8 +50,7 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
 
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault()
-    submitHandler(data!)
-    handleClose()
+    createPost(postState, url)
   }
 
   return (
@@ -77,7 +83,7 @@ const PostForm: React.FC<FormProps> = ({ submitHandler, handleClose, userId }) =
             <Button variant="contained" type="submit" value="submit">
               Send
             </Button>
-            {error && <div>{error}</div>}
+            {error && <div>{error} </div>}
           </Box>
         </Box>
       </form>

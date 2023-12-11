@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Post } from '../../../constants/Types/dataType'
 const { v4: uuidv4 } = require('uuid')
 
-const useCreatePost = (post: Post, url: string) => {
-  const [data, setData] = useState<Post | undefined>(undefined)
-  const [error, setError] = useState(null)
+const useCreatePost = () => {
+  const [error, setError] = useState<boolean | null>(null)
 
-  useEffect(() => {
+  const createPost = (post: Post, url: string) => {
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -23,17 +22,15 @@ const useCreatePost = (post: Post, url: string) => {
         if (!res.ok) {
           throw Error('Could not create a post')
         }
+        setError(false)
         return res.json()
-      })
-      .then((res) => {
-        setData(res)
       })
       .catch((err) => {
         setError(err.message)
       })
-  }, [post, url])
+  }
 
-  return { data, error }
+  return { error, createPost }
 }
 
 export default useCreatePost
